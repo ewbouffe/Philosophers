@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ewbouffe <ewbouffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:15 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/25 04:15:17 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/25 18:13:52 by ewbouffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,19 @@ void	create_and_assign_forks(t_data *data);
 // philo routine
 void	philos_thread_init(t_data *data);
 void	*routine(void *arg);
-void	even_grab_fork(t_philo *philo);
-void	odd_grab_fork(t_philo *philo);
-void	drop_forks(t_philo *philo);
+bool	even_grab_fork(t_philo *philo);
+bool	odd_grab_fork(t_philo *philo);
+bool	drop_forks(t_philo *philo);
 
 //philo action
-void	think(t_philo *philo);
-void	eat(t_philo *philo);
-void	sleep_philo(t_philo *philo);
+bool	think(t_philo *philo);
+bool	sleep_philo(t_philo *philo);
 bool	shall_we_stop(t_philo *philo);
-void precise_usleep(long duration);
+bool    precise_usleep(long duration, t_philo *philo);
 
-void	printf_debug(void);
+//philo meal
+bool	eat(t_philo *philo);
+bool    is_philo_still_alive(t_philo *philo, long current);
+void    is_philo_done_eating(t_philo *philo);
 
 #endif

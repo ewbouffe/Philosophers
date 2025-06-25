@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ewbouffe <ewbouffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:06 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/25 15:10:08 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/25 17:34:03 by ewbouffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ int	main(int c, char **v)
 {
 	t_data data;
 
+	if (v[1][0] == '0')
+	{
+		printf("Can't work with 0 philosophers\n");
+		return (0);
+	}
 	memset(&data, 0, sizeof(struct s_data));
 	main_parsing(&data, c, v);
 	if (data.parsing_error != 0)

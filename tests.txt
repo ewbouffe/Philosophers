@@ -1,3 +1,0 @@
-test 1 800 200 200 = bon
-test 5 800 200 200 = un philo meurt apres longtemps
-test 5 800 200 200 7 = bon

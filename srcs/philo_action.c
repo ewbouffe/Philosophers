@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_action.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ewbouffe <ewbouffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:05:46 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/25 18:38:35 by ewbouffe         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:38:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,9 @@ bool	think(t_philo *philo)
 	if (stop)
 		return (stop);
 	printf("%ld philo %d is thinking\n", time_inter(philo->data), philo->rank);
+	precise_usleep(50, philo);
 	return (stop);
 }
-
-// void	eat(t_philo *philo)
-// {
-// 	long	meal_inter;
-
-// 	meal_inter = time_inter(philo->data);
-// 	// if (meal_inter - philo->last_meal_time > (long)philo->data->tt_die)
-// 	// {
-// 	// 	pthread_mutex_lock(&philo->data->dead_philos);
-// 	// 	philo->data->dead_philo = 1;
-// 	// 	pthread_mutex_unlock(&philo->data->dead_philos);
-// 	// 	precise_usleep(10, philo);
-// 	// 	printf("%ld philo %d has died !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", time_inter(philo->data), philo->rank);
-// 	// 	return ;
-// 	// }
-// 	philo->meals_eaten++;
-	
-// 	// if (philo->meals_eaten == philo->data->number_o_time_to_eat)
-// 	// {
-// 	// 	pthread_mutex_lock(&philo->data->done_philos);
-// 	// 	philo->data->done_philo++;
-// 	// 	pthread_mutex_unlock(&philo->data->done_philos);
-// 	// }
-// 	printf("%ld philo %d is eating\n", time_inter(philo->data), philo->rank);
-// 	philo->last_meal_time = meal_inter;
-// 	precise_usleep(philo->data->tt_eat, philo);
-// }
-
 
 bool	sleep_philo(t_philo *philo)
 {

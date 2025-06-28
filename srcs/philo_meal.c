@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_meal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ewbouffe <ewbouffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 17:56:13 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/25 18:37:45 by ewbouffe         ###   ########.fr       */
+/*   Updated: 2025/06/28 23:22:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ bool	is_philo_still_alive(t_philo *philo, long current)
 		pthread_mutex_lock(&philo->data->dead_philos);
 		philo->data->dead_philo = 1;
 		pthread_mutex_unlock(&philo->data->dead_philos);
-		usleep(500);
 		printf("%ld philo %d has died !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", time_inter(philo->data), philo->rank);
 		stop = shall_we_stop(philo);
 	}

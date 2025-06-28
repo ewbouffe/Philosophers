@@ -419,3 +419,6 @@ kill: usage: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill 
 [1...] 1sec - still alive 
 [2...][+] Test #24 Failed with 3 610 200 200, the philosopher should stay alive for at least 40 seconds
 message.txt
+
+
+5 600 150 150

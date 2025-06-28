@@ -1,0 +1,421 @@
+J0K3R__
+j0k3r__
+Invisible
+
+SAMY — 26/05/2025 11:29
+!
+J0K3R__ — 26/05/2025 12:12
+ça me dit que l'addresse mail est pas reconnue
+SAMY — 26/05/2025 12:12
+Heu
+Tu la bien écrit ?
+J0K3R__ — 26/05/2025 12:12
+Image
+SAMY — 26/05/2025 12:13
+Y'a un "." a la fin du mail 
+🙄
+J0K3R__ — 26/05/2025 12:13
+bien vu
+je l'avais copié sur l'intra xD
+tu joues a tft ou tu taffes ?
+mais le jour ou uniquement la v3 affichait que j'étais bh c'est sur que j'étais pas bh pck maintenant que je suis bh j'ai plus accès a l'intra
+J0K3R__ — 26/05/2025 12:29
+Finalement je vais à 42 aujourd’hui
+GIF
+SAMY — 26/05/2025 12:54
+Ahahah
+Ils ton convoqué ?
+J0K3R__ — 26/05/2025 12:54
+Non ils ont réglé le problème direct
+SAMY — 26/05/2025 12:55
+Letsgooooo
+❤️❤️❤️❤️❤️
+Troll pas pars bosser enflure
+!!!!!!
+😾😾😾😾
+J0K3R__ — 26/05/2025 12:55
+Je pourrais me faire blackhole sur mini Shell comme ça
+😂
+Quand je suis sur cette page pour avoir le rôle sur le discord delegues je dois faire quoi ?
+Image
+SAMY — 26/05/2025 13:01
+Idk
+Demande à rcarli
+Recarli
+SAMY
+ a commencé un appel qui a duré quelques secondes. — 07/06/2025 20:29
+J0K3R__ — 22/06/2025 17:47
+tft ?
+SAMY — 24/06/2025 00:14
+regarde
+Image
+Image
+SAMY — 24/06/2025 00:56
+91.167.28.242
+SAMY — 24/06/2025 01:11
+/connect -ssl -port 20000 -ipv6 off 91.167.28.242 1234
+SAMY — 24/06/2025 02:09
+User fd: 4
+Username: ewbouffe
+Nickname: ewbouffe
+Realname: ewbouffe
+hostname: DESKTOP-UL667JC.mshome.net
+IP Address: 192.168.112.1
+Registered: Yes
+Prefix: ewbouffe!ewbouffe@DESKTOP-UL667JC.mshome.net
+J0K3R__ — 25/06/2025 15:07
+j'ai fini mon philo mais il y en a qui meurent au bout d'un certain temps, c'est normal ?
+SAMY — 25/06/2025 15:23
+Ça dépend c'est quoi ton prompt ?
+J0K3R__ — 25/06/2025 15:29
+5 800 200 200
+J0K3R__ — 25/06/2025 15:46
+https://github.com/ewbouffe/Philosophers.git si tu veux tester
+GitHub
+GitHub - ewbouffe/Philosophers
+Contribute to ewbouffe/Philosophers development by creating an account on GitHub.
+GitHub - ewbouffe/Philosophers
+SAMY — 25/06/2025 16:57
+Essaye avec mon philo est check si cz fait la même chose
+J0K3R__ — 25/06/2025 17:13
+chez moi il meurt mais a 42 non
+SAMY — 25/06/2025 17:13
+Cest normal
+J0K3R__ — 25/06/2025 17:13
+avec les memes parametres
+SAMY — 25/06/2025 17:13
+Ca depend de la vitesse du processus
+Les resultats peuvent varié
+J0K3R__ — 25/06/2025 19:13
+Normalement j’ai plus qu’à le mettre à la norme je le push demain je pense
+SAMY — 25/06/2025 22:46
+Nickel chrome !
+J0K3R__ — 25/06/2025 23:16
+ca joue ?
+SAMY — 26/06/2025 06:29
+Ca dormait 😭
+SAMY
+ a commencé un appel qui a duré une minute. — 22:33
+J0K3R__ — 22:40
+bool    even_grab_fork(t_philo *philo)
+{
+    bool    stop;
+
+    stop = 0;
+    stop = shall_we_stop(philo);
+    if (stop)
+        return (stop);
+    pthread_mutex_lock(philo->left_fork);
+    stop = shall_we_stop(philo);
+    if (!stop)
+        printf("%ld philo %d has locked a fork\n",time_inter(philo->data), philo->rank);
+    pthread_mutex_lock(philo->right_fork);
+    stop = shall_we_stop(philo);
+    if (!stop)
+        printf("%ld philo %d has locked a fork\n",time_inter(philo->data), philo->rank);
+    if (stop)
+        drop_forks(philo);
+    return (stop);
+}
+SAMY — 22:40
+=-
+SAMY — 22:48
+
+
+                [============[Testing philo]==============]
+
+                [============[ Death Checks ]==============]
+
+
+Afficher plus
+message.txt
+10 Ko
+﻿
+SAMY
+samy77190
+AnnulledMite
+ 
+ 
+ 
+ 
+ 
+.　　   .˚ 　.　 ✦˚　　 　　.　　˚　　. ✦　　˚　🌎　˚　　　. ✦ 　　　.   　 　　　˚　　　　　*　　 　　✦　　　.　　.　　　 🌒　　. 　　　˚　　　. 　˚　
+SensCritique :  https://www.senscritique.com/samybt
+                [============[Testing philo]==============]
+
+                [============[ Death Checks ]==============]
+
+
+
+[+] Testing philo with 1 800 200 200
+[+] Test #1 Succeeded ! Only one death occured.
+[+] Test #1 Succeeded ! Simulation ends after death
+[-] Test #1 Error: Timestamp is incorrect with an error of -799 ms (1)
+[+] Test #1 Valgrind Test Succeeded !
+[+] Test #1 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 4 310 200 100
+[+] Test #2 Succeeded ! Only one death occured.
+[+] Test #2 Succeeded ! Simulation ends after death
+[-] Test #2 Error: Timestamp is incorrect with an error of 90 ms (400)
+[+] Test #2 Valgrind Test Succeeded !
+[+] Test #2 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 4 200 205 200
+[+] Test #3 Succeeded ! Only one death occured.
+[+] Test #3 Succeeded ! Simulation ends after death
+[+] Test #3 Timestamp is correct with an error of 5 ms
+[+] Test #3 Valgrind Test Succeeded !
+[+] Test #3 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 5 599 200 200
+[+] Test #4 Succeeded ! Only one death occured.
+[+] Test #4 Succeeded ! Simulation ends after death
+[+] Test #4 Timestamp is correct with an error of 2 ms
+[+] Test #4 Valgrind Test Succeeded !
+[+] Test #4 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 5 300 60 600
+[+] Test #5 Succeeded ! Only one death occured.
+[+] Test #5 Succeeded ! Simulation ends after death
+[-] Test #5 Error: Timestamp is incorrect with an error of 360 ms (660)
+[+] Test #5 Valgrind Test Succeeded !
+[+] Test #5 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 5 60 60 60
+[+] Test #6 Succeeded ! Only one death occured.
+[+] Test #6 Succeeded ! Simulation ends after death
+[+] Test #6 Timestamp is correct with an error of 1 ms
+[+] Test #6 Valgrind Test Succeeded !
+[+] Test #6 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 200 60 60 60
+[+] Test #7 Succeeded ! Only one death occured.
+[+] Test #7 Succeeded ! Simulation ends after death
+[+] Test #7 Timestamp is correct with an error of 3 ms
+[+] Test #7 Valgrind Test Succeeded !
+[+] Test #7 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 200 300 60 600
+[+] Test #8 Succeeded ! Only one death occured.
+[+] Test #8 Succeeded ! Simulation ends after death
+[-] Test #8 Error: Timestamp is incorrect with an error of 362 ms (662)
+[+] Test #8 Valgrind Test Succeeded !
+[-] Test #8 Helgrind Test Failed: Race conditions detected
+
+
+[+] Testing philo with 199 800 300 100
+[+] Test #9 Succeeded ! Only one death occured.
+[+] Test #9 Succeeded ! Simulation ends after death
+[-] Test #9 Error: Timestamp is incorrect with an error of 109 ms (909)
+[+] Test #9 Valgrind Test Succeeded !
+[-] Test #9 Helgrind Test Failed: Race conditions detected
+
+                [============[ Meal Checks ]==============]
+
+
+
+[+] Testing philo with 5 800 200 200 7
+[+] Philosopher 1 ate 9 times
+[+] Philosopher 2 ate 8 times
+[+] Philosopher 3 ate 7 times
+[+] Philosopher 4 ate 7 times
+[+] Philosopher 5 ate 0 times
+[-] Test #10 Failed: Philosopher 5 has not eaten enough times or has eaten too many times
+[-] Test #10 Failed: Failed with 5 800 200 200 7 
+[+] Test #10 Valgrind Test Succeeded !
+[-] Test #10 Helgrind Test Failed: Race conditions detected
+
+
+[+] Testing philo with 3 800 200 200 7
+[+] Philosopher 1 ate 7 times
+[+] Philosopher 2 ate 7 times
+[+] Philosopher 3 ate 0 times
+[-] Test #11 Failed: Philosopher 3 has not eaten enough times or has eaten too many times
+[-] Test #11 Failed: Failed with 3 800 200 200 7 
+[+] Test #11 Valgrind Test Succeeded !
+[+] Test #11 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 2 800 200 200 7
+[+] Philosopher 1 ate 7 times
+[+] Philosopher 2 ate 0 times
+[-] Test #12 Failed: Philosopher 2 has not eaten enough times or has eaten too many times
+[-] Test #12 Failed: Failed with 2 800 200 200 7 
+[+] Test #12 Valgrind Test Succeeded !
+[+] Test #12 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 4 410 200 200 10
+[+] Philosopher 1 ate 10 times
+[+] Philosopher 2 ate 10 times
+[+] Philosopher 3 ate 10 times
+[+] Philosopher 4 ate 0 times
+[-] Test #13 Failed: Philosopher 4 has not eaten enough times or has eaten too many times
+[-] Test #13 Failed: Failed with 4 410 200 200 10 
+[+] Test #13 Valgrind Test Succeeded !
+[+] Test #13 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 2 410 200 200 10
+[+] Philosopher 1 ate 10 times
+[+] Philosopher 2 ate 0 times
+[-] Test #14 Failed: Philosopher 2 has not eaten enough times or has eaten too many times
+[-] Test #14 Failed: Failed with 2 410 200 200 10 
+[+] Test #14 Valgrind Test Succeeded !
+[+] Test #14 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 200 410 200 200 10
+[+] Philosopher 1 ate 1 times
+[-] Test #14 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #14 Failed: Failed with 200 410 200 200 10 
+[+] Test #14 Valgrind Test Succeeded !
+[-] Test #14 Helgrind Test Failed: Race conditions detected
+
+
+[+] Testing philo with 7 800 200 500 7
+[+] Philosopher 1 ate 2 times
+[-] Test #14.1 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #14.1 Failed: Failed with 7 800 200 500 7 
+[+] Test #14.1 Valgrind Test Succeeded !
+[+] Test #14.1 Helgrind Test Succeeded !
+
+
+[+] Testing philo with 199 610 200 200 10
+[+] Philosopher 1 ate 1 times
+[-] Test #15 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #15 Failed: Failed with 199 610 200 200 10 
+[+] Test #15 Valgrind Test Succeeded !
+[-] Test #15 Helgrind Test Failed: Race conditions detected
+
+
+[+] Testing philo with 199 610 200 80 10
+[+] Philosopher 1 ate 1 times
+[-] Test #16 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #16 Failed: Failed with 199 610 200 80 10 
+[+] Test #16 Valgrind Test Succeeded !
+[-] Test #16 Helgrind Test Failed: Race conditions detected
+
+
+[+] Testing philo with 200 410 200 80 10
+[+] Philosopher 1 ate 1 times
+[-] Test #17 Failed: Philosopher 1 has not eaten enough times or has eaten too many times
+[-] Test #17 Failed: Failed with 200 410 200 80 10 
+[+] Test #17 Valgrind Test Succeeded !
+[-] Test #17 Helgrind Test Failed: Race conditions detected
+
+                [============[ CPU Checks ]==============]
+
+ CPU usage: 3.90% 
+ CPU usage: 4.90% 
+ CPU usage: 5.20% 
+ CPU usage: 5.10% 
+ CPU usage: 5.10% 
+ CPU usage: 5.20% 
+ CPU usage: 5.30% 
+ CPU usage: 0.00% 
+ CPU usage: 0.00% 
+
+[+] Test #70 Succeeded: Average CPU usage is 3.86% for 2 philos 
+
+./thales_tester/test.sh: line 287: kill: (35759) - No such process
+ CPU usage: 16.80% 
+ CPU usage: 20.20% 
+ CPU usage: 21.30% 
+ CPU usage: 22.20% 
+ CPU usage: 22.60% 
+ CPU usage: 23.10% 
+ CPU usage: 23.30% 
+ CPU usage: 23.40% 
+ CPU usage: 23.10% 
+ CPU usage: 23.30% 
+
+[+] Test #70 Succeeded: Average CPU usage is 21.93% for 10 philos 
+
+ CPU usage: 143.00% 
+[-] Test #70 Failed: CPU usage is too high (143.00%) with 50 philos 
+
+kill: usage: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sigspec]
+./thales_tester/test.sh: line 275: pid: command not found
+
+                [============[ Running Philo for 40 Seconds ]==============]
+
+
+
+[+] Test #21 Testing philo with 5 800 200 200
+[1...] 1sec - still alive 
+[2...] 2sec - still alive 
+[3...] 3sec - still alive 
+[4...] 4sec - still alive 
+[5...] 5sec - still alive 
+[6...] 6sec - still alive 
+[7...] 7sec - still alive 
+[8...] 8sec - still alive 
+[9...] 9sec - still alive 
+[10...] 10sec - still alive 
+[11...] 11sec - still alive 
+[12...] 12sec - still alive 
+[13...] 13sec - still alive 
+[14...] 14sec - still alive 
+[15...] 15sec - still alive 
+[16...] 16sec - still alive 
+[17...] 17sec - still alive 
+[18...][+] Test #21 Failed with 5 800 200 200, the philosopher should stay alive for at least 40 seconds
+
+
+[+] Test #22 Testing philo with 5 800 200 150
+[1...] 1sec - still alive 
+[2...] 2sec - still alive 
+[3...] 3sec - still alive 
+[4...] 4sec - still alive 
+[5...] 5sec - still alive 
+[6...] 6sec - still alive 
+[7...] 7sec - still alive 
+[8...] 8sec - still alive 
+[9...] 9sec - still alive 
+[10...] 10sec - still alive 
+[11...] 11sec - still alive 
+[12...] 12sec - still alive 
+[13...] 13sec - still alive 
+[14...] 14sec - still alive 
+[15...] 15sec - still alive 
+[16...] 16sec - still alive 
+[17...] 17sec - still alive 
+[18...] 18sec - still alive 
+[19...] 19sec - still alive 
+[20...] 20sec - still alive 
+[21...] 21sec - still alive 
+[22...] 22sec - still alive 
+[23...] 23sec - still alive 
+[24...] 24sec - still alive 
+[25...] 25sec - still alive 
+[26...] 26sec - still alive 
+[27...] 27sec - still alive 
+[28...] 28sec - still alive 
+[29...] 29sec - still alive 
+[30...] 30sec - still alive 
+[31...] 31sec - still alive 
+[32...][+] Test #22 Failed with 5 800 200 150, the philosopher should stay alive for at least 40 seconds
+
+
+[+] Test #23 Testing philo with 3 610 200 80
+[1...] 1sec - still alive 
+[2...] 2sec - still alive 
+[3...] 3sec - still alive 
+[4...] 4sec - still alive 
+[5...] 5sec - still alive 
+[6...][+] Test #23 Failed with 3 610 200 80, the philosopher should stay alive for at least 40 seconds
+
+
+[+] Test #24 Testing philo with 3 610 200 200
+[1...] 1sec - still alive 
+[2...][+] Test #24 Failed with 3 610 200 200, the philosopher should stay alive for at least 40 seconds
+message.txt

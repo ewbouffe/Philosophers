@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:33:52 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/28 23:38:22 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/29 01:26:56 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void	philos_thread_init(t_data *data)
 
 	i = 0;
 	
+	// mutex_wait lock
 	while(i < (size_t)data->number_of_philo)
 	{
 		if(pthread_create(&data->philosophers[i].thread, NULL, &routine, &data->philosophers[i]) != 0)
 			perror("failed to create thread");
 		i++;
 	}
+	// mutex_wait delock
 	i = 0;
 	while (i < (size_t)data->number_of_philo)
 	{
@@ -39,12 +41,12 @@ void	*routine(void *arg)
 {
 	t_philo *philo;
 
+	// lock & delock
 	philo = (t_philo *)arg;
 	while(1)
 	{
-		if (philo->rank % 2 == 0)
+		if (philo->rank % 2 != 0)
 		{
-			precise_usleep(100, philo);
 			if (even_grab_fork(philo))
 				return (NULL);
 		}
@@ -55,7 +57,8 @@ void	*routine(void *arg)
 		}
 		if (eat(philo))
 			return (NULL);
-		drop_forks(philo);
+		if (drop_forks(philo))
+			return (NULL);
 		if (sleep_philo(philo))
 			return (NULL);
 		if (think(philo))
@@ -66,44 +69,44 @@ void	*routine(void *arg)
 
 bool	even_grab_fork(t_philo *philo)
 {
-	bool	stop;
-
-	stop = 0;
-	stop = shall_we_stop(philo);
-	if (stop)
-		return (stop);
-	pthread_mutex_lock(philo->left_fork);
-	// stop = shall_we_stop(philo);
-	// if (!stop)
-	printf("%ld philo %d has locked a fork\n",time_inter(philo->data), philo->rank);
+	if (shall_we_stop(philo))
+		return (true);
 	pthread_mutex_lock(philo->right_fork);
-	// stop = shall_we_stop(philo);
-	// if (!stop)
-	printf("%ld philo %d has locked a fork\n",time_inter(philo->data), philo->rank);
-	if (stop)
+	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
+	if (shall_we_stop(philo))
+	{
 		drop_forks(philo);
-	return (stop);
+		return (true);
+	}
+	pthread_mutex_lock(philo->left_fork);
+	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
+	if (shall_we_stop(philo))
+	{
+		drop_forks(philo);
+		return (true);
+	}
+	return (false);
 }
 
 bool	odd_grab_fork(t_philo *philo)
 {
-	bool	stop;
-
-	stop = 0;
-	stop = shall_we_stop(philo);
-	if (stop)
-		return (stop);
-	pthread_mutex_lock(philo->right_fork);
-	stop = shall_we_stop(philo);
-	if (!stop)
-		printf("%ld philo %d has locked a fork\n",time_inter(philo->data), philo->rank);
+	if (shall_we_stop(philo))
+		return (true);
 	pthread_mutex_lock(philo->left_fork);
-	stop = shall_we_stop(philo);
-	if (!stop)
-		printf("%ld philo %d has locked a fork\n",time_inter(philo->data), philo->rank);
-	if (stop)
+	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
+	if (shall_we_stop(philo))
+	{
 		drop_forks(philo);
-	return (stop);
+		return (true);
+	}
+	pthread_mutex_lock(philo->right_fork);
+	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
+	if (shall_we_stop(philo))
+	{
+		drop_forks(philo);
+		return (true);
+	}
+	return (false);
 }
 
 bool	drop_forks(t_philo *philo)
@@ -111,7 +114,9 @@ bool	drop_forks(t_philo *philo)
 	bool	stop;
 
 	stop = shall_we_stop(philo);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	if (philo->right_fork != NULL)
+		pthread_mutex_unlock(philo->left_fork);
+	if (philo->left_fork != NULL)
+		pthread_mutex_unlock(philo->right_fork);
 	return (stop);
 }

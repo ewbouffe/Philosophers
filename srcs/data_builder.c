@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_builder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:12 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/25 03:41:49 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/29 01:21:00 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	philo_builder(t_data *data)
 		return ;
 	while (i < (size_t)data->number_of_philo)
 	{
-		data->philosophers[i].rank = i;
+		data->philosophers[i].rank = i + 1;
 		data->philosophers[i].data = data;
 		i++;
 	}

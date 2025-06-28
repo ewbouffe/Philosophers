@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ewbouffe <ewbouffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:15 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/25 18:13:52 by ewbouffe         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:19:44 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ bool    precise_usleep(long duration, t_philo *philo);
 //philo meal
 bool	eat(t_philo *philo);
 bool    is_philo_still_alive(t_philo *philo, long current);
-void    is_philo_done_eating(t_philo *philo);
+bool    is_philo_done_eating(t_philo *philo);
 
 #endif

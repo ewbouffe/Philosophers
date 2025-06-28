@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_meal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 17:56:13 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/28 23:22:34 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/29 01:36:33 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,50 +15,59 @@
 bool	eat(t_philo *philo)
 {
 	long	meal_inter;
-	bool	stop;
 
-	stop = shall_we_stop(philo);
-	if (stop == 1)
+	if (shall_we_stop(philo))
 	{
 		drop_forks(philo);
-		return (stop);
+		return (true);
 	}
 	meal_inter = time_inter(philo->data);
 	if (is_philo_still_alive(philo, meal_inter))
-		return (stop);
+		return (true);
 	philo->meals_eaten++;
-	is_philo_done_eating(philo);
-	printf("%ld philo %d is eating\n", time_inter(philo->data), philo->rank);
+	printf("%ld %d is eating\n", time_inter(philo->data), philo->rank);
+	if (is_philo_done_eating(philo))
+		return (true);
 	philo->last_meal_time = meal_inter;
-	precise_usleep(philo->data->tt_eat, philo);
-	return (stop);
+	if (precise_usleep(philo->data->tt_eat, philo) == false)
+		return (true);
+	return (false);
 }
 
 bool	is_philo_still_alive(t_philo *philo, long current)
 {
-	bool	stop;
-	
-	stop = 0;
-	stop = shall_we_stop(philo);
-	if (stop)
-		return (stop);
+	if (shall_we_stop(philo))
+	{
+		drop_forks(philo);
+		return (true);
+	}
 	if (current - philo->last_meal_time > philo->data->tt_die)
 	{
 		pthread_mutex_lock(&philo->data->dead_philos);
 		philo->data->dead_philo = 1;
 		pthread_mutex_unlock(&philo->data->dead_philos);
-		printf("%ld philo %d has died !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", time_inter(philo->data), philo->rank);
-		stop = shall_we_stop(philo);
+		printf("%ld %d died\n", time_inter(philo->data), philo->rank);
+		return (true);
 	}
-	return (stop);
+	if (shall_we_stop(philo))
+	{
+		drop_forks(philo);
+		return (true);
+	}
+	return (false);
 }
 
-void	is_philo_done_eating(t_philo *philo)
+bool	is_philo_done_eating(t_philo *philo)
 {
+	if (shall_we_stop(philo))
+		return (true);
 	if (philo->meals_eaten == philo->data->number_o_time_to_eat)
 	{
 		pthread_mutex_lock(&philo->data->done_philos);
 		philo->data->done_philo++;
 		pthread_mutex_unlock(&philo->data->done_philos);
 	}
+	if (shall_we_stop(philo))
+		return (true);
+	return (false);
 }

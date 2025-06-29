@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:15 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/29 00:19:44 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/06/29 03:42:18 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*routine(void *arg);
 bool	even_grab_fork(t_philo *philo);
 bool	odd_grab_fork(t_philo *philo);
 bool	drop_forks(t_philo *philo);
-
+bool    grab_forks(t_philo *philo);
 //philo action
 bool	think(t_philo *philo);
 bool	sleep_philo(t_philo *philo);

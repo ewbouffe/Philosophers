@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:33:52 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/29 01:26:56 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/06/29 03:45:06 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,78 +45,93 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	while(1)
 	{
-		if (philo->rank % 2 != 0)
-		{
-			if (even_grab_fork(philo))
-				return (NULL);
-		}
-		else
-		{
-			if (odd_grab_fork(philo))
-				return (NULL);
-		}
-		if (eat(philo))
+		if (grab_forks(philo))
 			return (NULL);
-		if (drop_forks(philo))
+		if (eat(philo))
 			return (NULL);
 		if (sleep_philo(philo))
 			return (NULL);
 		if (think(philo))
 			return (NULL);
+		
 	}
 	return (NULL);
 }
 
-bool	even_grab_fork(t_philo *philo)
-{
-	if (shall_we_stop(philo))
-		return (true);
-	pthread_mutex_lock(philo->right_fork);
-	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
-	if (shall_we_stop(philo))
-	{
-		drop_forks(philo);
-		return (true);
-	}
-	pthread_mutex_lock(philo->left_fork);
-	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
-	if (shall_we_stop(philo))
-	{
-		drop_forks(philo);
-		return (true);
-	}
-	return (false);
-}
+// bool	even_grab_fork(t_philo *philo)
+// {
+// 	if (shall_we_stop(philo))
+// 		return (true);
+// 	pthread_mutex_lock(philo->right_fork);
+// 	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
+// 	if (shall_we_stop(philo))
+// 		return (pthread_mutex_unlock(philo->right_fork), true);
+// 	pthread_mutex_lock(philo->left_fork);
+// 	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
+// 	if (shall_we_stop(philo))
+// 	{
+// 		pthread_mutex_unlock(philo->left_fork);
+// 		pthread_mutex_unlock(philo->right_fork);
+// 		return (true);
+// 	}
+// 	return (false);
+// }
 
-bool	odd_grab_fork(t_philo *philo)
-{
-	if (shall_we_stop(philo))
-		return (true);
-	pthread_mutex_lock(philo->left_fork);
-	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
-	if (shall_we_stop(philo))
-	{
-		drop_forks(philo);
-		return (true);
-	}
-	pthread_mutex_lock(philo->right_fork);
-	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
-	if (shall_we_stop(philo))
-	{
-		drop_forks(philo);
-		return (true);
-	}
-	return (false);
-}
+// bool	odd_grab_fork(t_philo *philo)
+// {
+// 	if (shall_we_stop(philo))
+// 		return (true);
+// 	pthread_mutex_lock(philo->left_fork);
+// 	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
+// 	if (shall_we_stop(philo))
+// 	{
+// 		pthread_mutex_unlock(philo->left_fork);
+// 		return (true);
+// 	}
+// 	pthread_mutex_lock(philo->right_fork);
+// 	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
+// 	if (shall_we_stop(philo))
+// 	{
+// 		pthread_mutex_unlock(philo->right_fork);
+// 		pthread_mutex_unlock(philo->left_fork);
+// 		return (true);
+// 	}
+// 	return (false);
+// }
 
 bool	drop_forks(t_philo *philo)
 {
 	bool	stop;
 
 	stop = shall_we_stop(philo);
-	if (philo->right_fork != NULL)
-		pthread_mutex_unlock(philo->left_fork);
-	if (philo->left_fork != NULL)
-		pthread_mutex_unlock(philo->right_fork);
+	if (&philo->first_fork)
+	{
+		pthread_mutex_unlock(&philo->first_fork);
+		// pthread_mutex_init(&philo->first_fork, NULL);
+	}
+	
+	pthread_mutex_unlock(&philo->second_fork);
 	return (stop);
+}
+
+
+bool	grab_forks(t_philo *philo)
+{
+	if (shall_we_stop(philo))
+		return (true);
+	pthread_mutex_lock(&philo->first_fork);
+	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
+	if (shall_we_stop(philo))
+	{
+		drop_forks(philo);
+		return (true);
+	}
+	pthread_mutex_lock(&philo->second_fork);
+	printf("%ld %d has taken a fork\n",time_inter(philo->data), philo->rank);
+	if (shall_we_stop(philo))
+	{
+		drop_forks(philo);
+		return (true);
+	}
+	return (false);
 }

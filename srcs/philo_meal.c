@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 17:56:13 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/29 01:36:33 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/06/29 03:33:12 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,15 @@ bool	eat(t_philo *philo)
 	long	meal_inter;
 
 	if (shall_we_stop(philo))
-	{
-		drop_forks(philo);
 		return (true);
-	}
 	meal_inter = time_inter(philo->data);
 	if (is_philo_still_alive(philo, meal_inter))
 		return (true);
 	philo->meals_eaten++;
+	philo->last_meal_time = meal_inter;
 	printf("%ld %d is eating\n", time_inter(philo->data), philo->rank);
 	if (is_philo_done_eating(philo))
 		return (true);
-	philo->last_meal_time = meal_inter;
 	if (precise_usleep(philo->data->tt_eat, philo) == false)
 		return (true);
 	return (false);
@@ -37,10 +34,7 @@ bool	eat(t_philo *philo)
 bool	is_philo_still_alive(t_philo *philo, long current)
 {
 	if (shall_we_stop(philo))
-	{
-		drop_forks(philo);
 		return (true);
-	}
 	if (current - philo->last_meal_time > philo->data->tt_die)
 	{
 		pthread_mutex_lock(&philo->data->dead_philos);
@@ -50,10 +44,7 @@ bool	is_philo_still_alive(t_philo *philo, long current)
 		return (true);
 	}
 	if (shall_we_stop(philo))
-	{
-		drop_forks(philo);
 		return (true);
-	}
 	return (false);
 }
 

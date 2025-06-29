@@ -3,15 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/24 19:39:36 by ewbouffe          #+#    #+#              #
-#    Updated: 2025/06/25 03:34:18 by marvin           ###   ########.fr        #
+#    Updated: 2025/06/29 03:11:11 by sben-tay         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC		= gcc
+CC		= clang
 CFLAGS	= -Wall -Wextra -Werror -g3
+# CFLAGS += -fsanitize=address
+CFLAGS += -fsanitize=thread
 
 SRCDIR	= srcs
 INCDIR	= include

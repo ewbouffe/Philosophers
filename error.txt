@@ -97,7 +97,7 @@ Ca dormait 😭
 SAMY
  a commencé un appel qui a duré une minute. — 22:33
 J0K3R__ — 22:40
-bool    even_grab_fork(t_philo *philo)
+bool    _fork(t_philo *philo)
 {
     bool    stop;
 

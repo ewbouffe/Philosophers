@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:18 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/25 03:30:07 by marvin           ###   ########.fr       */
+/*   Updated: 2025/06/29 03:17:43 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef	struct s_philosophers
 	long	last_meal_time;
 	int	rank;
 	int	meals_eaten;
+	pthread_mutex_t	first_fork;
+	pthread_mutex_t	second_fork;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_t	thread;

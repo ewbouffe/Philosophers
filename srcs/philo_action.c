@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:05:46 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/29 01:30:34 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/06/29 03:30:34 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ bool	think(t_philo *philo)
 	if (shall_we_stop(philo))
 		return (true);
 	printf("%ld %d is thinking\n", time_inter(philo->data), philo->rank);
-	if (precise_usleep(1, philo) == false)
-		return (true);
+	usleep(1000);
 	return (false);
 }
 
@@ -53,14 +52,11 @@ bool precise_usleep(long duration, t_philo *philo)
 	while (1)
 	{
 		if (shall_we_stop(philo))
-		{
-			drop_forks(philo);
 			return (false);
-		}
 		elapsed = get_time_in_ms() - start;
 		if (elapsed >= duration)
 			break;
-		usleep(250);
+		usleep(1000);
 	}
 	return (true);
 }

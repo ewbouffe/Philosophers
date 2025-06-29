@@ -6,7 +6,7 @@
 /*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:12 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/29 01:21:00 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/06/29 03:35:52 by sben-tay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,14 @@ void	create_and_assign_forks(t_data *data)
 		i++;
 	}
 	data->philosophers[data->number_of_philo - 1].right_fork = data->philosophers[0].left_fork;
+	/*if (data->philosophers->rank % 2 == 0)
+	{
+		data->philosophers->first_fork = data->philosophers->right_fork;
+		data->philosophers->second_fork = data->philosophers->left_fork;
+	}
+	else
+	{
+		data->philosophers->first_fork = data->philosophers->left_fork;
+		data->philosophers->second_fork = data->philosophers->right_fork;
+	}*/
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:03 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/25 03:38:02 by marvin           ###   ########.fr       */
+/*   Updated: 2025/07/14 11:06:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,14 @@ void	mutex_destroyer(t_data *data)
     size_t  i;
 
     i = 0;
-    while(i < (size_t)data->number_of_philo)
+    while(i < (size_t)data->number_of_philo - 1)
     {
         pthread_mutex_destroy(data->philosophers[i].left_fork);
 		free(data->philosophers[i].left_fork);
         i++;
     }
-    pthread_mutex_destroy(&data->dead_philos);
-    pthread_mutex_destroy(&data->done_philos);
+    pthread_mutex_destroy(data->dead_philos);
+    pthread_mutex_destroy(data->done_philos);
+	free(data->dead_philos);
+	free(data->done_philos);
 }

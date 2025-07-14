@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:15 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/29 03:42:18 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/14 11:20:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ void	parsing_error_printer(t_data *data);
 
 //data build
 bool	struct_initiator(t_data *data, char **args);
-void	data_builder(t_data *data, char **args);
-void	philo_builder(t_data *data);
-void	create_and_assign_forks(t_data *data);
+bool	data_builder(t_data *data, char **args);
+bool	philo_builder(t_data *data);
+bool	create_and_assign_forks(t_data *data);
+void	first_and_second_fork(t_data *data);
 
 // philo routine
 void	philos_thread_init(t_data *data);
@@ -58,5 +59,8 @@ bool    precise_usleep(long duration, t_philo *philo);
 bool	eat(t_philo *philo);
 bool    is_philo_still_alive(t_philo *philo, long current);
 bool    is_philo_done_eating(t_philo *philo);
+
+//utils2
+void	philo_build_malloc_error(t_data *data, ssize_t i);
 
 #endif

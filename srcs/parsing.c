@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ewbouffe <ewbouffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:33:55 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/24 19:58:59 by ewbouffe         ###   ########.fr       */
+/*   Updated: 2025/07/14 10:27:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,3 @@ void	parsing_error_printer(t_data *data)
 	if (data->parsing_error == 3)
 		write(2, "Too many parameters !!!\n", 25);
 }
-// a voir si il ya d'autres choses a prendre en compte

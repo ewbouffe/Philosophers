@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ewbouffe <ewbouffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:06 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/25 17:34:03 by ewbouffe         ###   ########.fr       */
+/*   Updated: 2025/07/14 10:50:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int c, char **v)
 
 	if (v[1][0] == '0')
 	{
-		printf("Can't work with 0 philosophers\n");
+		printf("Need more than 0 philosophers\n");
 		return (0);
 	}
 	memset(&data, 0, sizeof(struct s_data));

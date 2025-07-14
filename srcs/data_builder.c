@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_builder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-tay <sben-tay@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:12 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/06/29 03:35:52 by sben-tay         ###   ########.fr       */
+/*   Updated: 2025/07/14 11:21:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 bool	struct_initiator(t_data *data, char **args)
 {
-	data_builder(data, args);
+	if (!data_builder(data, args))
+		return (false);
 	if (data->number_of_philo == 1)
 	{
 		printf("%ld 1 has taken a fork\n", time_inter(data));
@@ -22,11 +23,12 @@ bool	struct_initiator(t_data *data, char **args)
 		printf("%ld 1 died\n", time_inter(data));
 		return (false);
 	}
-	philo_builder(data);
+	if (!philo_builder(data))
+		return (false);
 	return (true);
 }
 
-void	data_builder(t_data *data, char **args)
+bool	data_builder(t_data *data, char **args)
 {
 	data->number_of_philo = ft_atoi(args[1]);
 	data->tt_die = ft_atoi(args[2]);
@@ -37,51 +39,86 @@ void	data_builder(t_data *data, char **args)
 	else if (data->number_of_args == 5)
 		data->number_o_time_to_eat = -1;
 	data->start_time = get_time_in_ms();
+	data->dead_philos = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!data->dead_philos)
+	{
+		printf("Malloc failed to allocate memory\n");
+		return (false);
+	}
+	data->done_philos = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!data->done_philos)
+	{
+		printf("Malloc failed to allocate memory\n");
+		free(data->dead_philos);
+		return (false);
+	}
+	pthread_mutex_init(data->dead_philos, NULL);
+	pthread_mutex_init(data->done_philos, NULL);
+	return (true);
 }
 
-void	philo_builder(t_data *data)
+bool	philo_builder(t_data *data)
 {
 	size_t	i;
 
 	i = 0;
 	data->philosophers = ft_calloc(data->number_of_philo, sizeof(struct s_philosophers));
 	if (!data->philosophers)
-		return ;
+		return (false);
 	while (i < (size_t)data->number_of_philo)
 	{
 		data->philosophers[i].rank = i + 1;
 		data->philosophers[i].data = data;
 		i++;
 	}
-	create_and_assign_forks(data);
+	if (!create_and_assign_forks(data))
+		return (false);
+	return (true);
 }
 
-void	create_and_assign_forks(t_data *data)
+bool	create_and_assign_forks(t_data *data)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < (size_t)data->number_of_philo)
 	{
-		data->philosophers[i].left_fork = malloc(sizeof(pthread_mutex_t));
+		data->philosophers[i].left_fork = ft_calloc(1, sizeof(pthread_mutex_t));
+		if (!data->philosophers[i].left_fork)
+		{
+			philo_build_malloc_error(data, (ssize_t)i--);
+			return (false);
+		}
 		pthread_mutex_init(data->philosophers[i].left_fork, NULL);
 		i++;
 	}
 	i = 0;
-	while(i < (size_t)data->number_of_philo - 1)
+	while (i < (size_t)data->number_of_philo)
 	{
-		data->philosophers[i].right_fork = data->philosophers[i + 1].left_fork;
+		data->philosophers[i].right_fork = data->philosophers[(i + 1) % data->number_of_philo].left_fork;
 		i++;
 	}
-	data->philosophers[data->number_of_philo - 1].right_fork = data->philosophers[0].left_fork;
-	/*if (data->philosophers->rank % 2 == 0)
+	first_and_second_fork(data);
+	return (true);
+}
+
+void	first_and_second_fork(t_data *data)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < (size_t)data->number_of_philo)
 	{
-		data->philosophers->first_fork = data->philosophers->right_fork;
-		data->philosophers->second_fork = data->philosophers->left_fork;
+		if (data->philosophers[i].rank % 2 == 0)
+		{
+			data->philosophers[i].first_fork = data->philosophers[i].right_fork;
+			data->philosophers[i].second_fork = data->philosophers[i].left_fork;
+		}
+		else
+		{
+			data->philosophers[i].first_fork = data->philosophers[i].left_fork;
+			data->philosophers[i].second_fork = data->philosophers[i].right_fork;
+		}
+		i++;
 	}
-	else
-	{
-		data->philosophers->first_fork = data->philosophers->left_fork;
-		data->philosophers->second_fork = data->philosophers->right_fork;
-	}*/
 }

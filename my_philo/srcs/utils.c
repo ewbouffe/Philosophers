@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ewbouffe <ewbouffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:03 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/07/14 11:06:34 by marvin           ###   ########.fr       */
+/*   Updated: 2025/11/18 11:45:41 by ewbouffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	mutex_destroyer(t_data *data)
     size_t  i;
 
     i = 0;
-    while(i < (size_t)data->number_of_philo - 1)
+    while(i < (size_t)data->number_of_philo)
     {
         pthread_mutex_destroy(data->philosophers[i].left_fork);
 		free(data->philosophers[i].left_fork);

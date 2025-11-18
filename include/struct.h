@@ -21,6 +21,7 @@ typedef	struct s_philosophers
 	long	last_meal_time;
 	int	rank;
 	int	meals_eaten;
+	pthread_mutex_t	meal_mutex;
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*second_fork;
 	pthread_mutex_t	*left_fork;
@@ -42,6 +43,8 @@ typedef	struct s_data
 	int	dead_philo;
 	pthread_mutex_t	*done_philos;
 	int	done_philo;
+	pthread_mutex_t	*print_mutex;
+	pthread_t	monitor_thread;
 	int	number_of_args;
 	t_philo *philosophers;
 }t_data;

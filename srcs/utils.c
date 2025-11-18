@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ewbouffe <ewbouffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:03 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/07/14 11:06:34 by marvin           ###   ########.fr       */
+/*   Updated: 2025/11/18 11:45:41 by ewbouffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,42 @@ long	get_time_in_ms(void)
 	return (tv.tv_sec * 1000L + tv.tv_usec / 1000);
 }
 
+void	safe_print(t_philo *philo, char *message)
+{
+	pthread_mutex_lock(philo->data->print_mutex);
+	if (!shall_we_stop(philo))
+		printf("%ld %d %s\n", time_inter(philo->data), philo->rank, message);
+	pthread_mutex_unlock(philo->data->print_mutex);
+}
+
+void	print_death(t_philo *philo)
+{
+	pthread_mutex_lock(philo->data->print_mutex);
+	printf("%ld %d died\n", time_inter(philo->data), philo->rank);
+	pthread_mutex_unlock(philo->data->print_mutex);
+}
+
 void	mutex_destroyer(t_data *data)
 {
     size_t  i;
 
     i = 0;
-    while(i < (size_t)data->number_of_philo - 1)
+    while(i < (size_t)data->number_of_philo)
     {
         pthread_mutex_destroy(data->philosophers[i].left_fork);
 		free(data->philosophers[i].left_fork);
         i++;
     }
+	i = 0;
+	while(i < (size_t)data->number_of_philo)
+	{
+		pthread_mutex_destroy(&data->philosophers[i].meal_mutex);
+		i++;
+	}
     pthread_mutex_destroy(data->dead_philos);
     pthread_mutex_destroy(data->done_philos);
+	pthread_mutex_destroy(data->print_mutex);
 	free(data->dead_philos);
 	free(data->done_philos);
+	free(data->print_mutex);
 }

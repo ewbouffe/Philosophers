@@ -14,35 +14,16 @@
 
 bool	eat(t_philo *philo)
 {
-	long	meal_inter;
-
 	if (shall_we_stop(philo))
 		return (true);
-	meal_inter = time_inter(philo->data);
-	if (is_philo_still_alive(philo, meal_inter))
-		return (true);
+	pthread_mutex_lock(&philo->meal_mutex);
 	philo->meals_eaten++;
-	philo->last_meal_time = meal_inter;
-	printf("%ld %d is eating\n", time_inter(philo->data), philo->rank);
+	philo->last_meal_time = time_inter(philo->data);
+	pthread_mutex_unlock(&philo->meal_mutex);
+	safe_print(philo, "is eating");
 	if (is_philo_done_eating(philo))
 		return (true);
 	if (precise_usleep(philo->data->tt_eat, philo) == false)
-		return (true);
-	return (false);
-}
-
-bool	is_philo_still_alive(t_philo *philo, long current)
-{
-	if (current - philo->last_meal_time > philo->data->tt_die)
-	{
-		pthread_mutex_lock(philo->data->dead_philos);
-		philo->data->dead_philo = 1;
-		pthread_mutex_unlock(philo->data->dead_philos);
-		usleep(1000);
-		printf("%ld %d died\n", time_inter(philo->data), philo->rank);
-		return (true);
-	}
-	if (shall_we_stop(philo))
 		return (true);
 	return (false);
 }

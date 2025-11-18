@@ -52,8 +52,17 @@ bool	data_builder(t_data *data, char **args)
 		free(data->dead_philos);
 		return (false);
 	}
+	data->print_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!data->print_mutex)
+	{
+		printf("Malloc failed to allocate memory\n");
+		free(data->dead_philos);
+		free(data->done_philos);
+		return (false);
+	}
 	pthread_mutex_init(data->dead_philos, NULL);
 	pthread_mutex_init(data->done_philos, NULL);
+	pthread_mutex_init(data->print_mutex, NULL);
 	return (true);
 }
 
@@ -69,6 +78,7 @@ bool	philo_builder(t_data *data)
 	{
 		data->philosophers[i].rank = i + 1;
 		data->philosophers[i].data = data;
+		pthread_mutex_init(&data->philosophers[i].meal_mutex, NULL);
 		i++;
 	}
 	if (!create_and_assign_forks(data))

@@ -29,6 +29,8 @@ void	*ft_calloc(size_t nmemb, size_t size);
 long	time_inter(t_data *data);
 long	get_time_in_ms(void);
 void	mutex_destroyer(t_data *data);
+void	safe_print(t_philo *philo, char *message);
+void	print_death(t_philo *philo);
 
 //parsing
 void	main_parsing(t_data *data, int c, char **args);
@@ -45,6 +47,7 @@ void	first_and_second_fork(t_data *data);
 // philo routine
 void	philos_thread_init(t_data *data);
 void	*routine(void *arg);
+void	*monitor(void *arg);
 bool	even_grab_fork(t_philo *philo);
 bool	odd_grab_fork(t_philo *philo);
 bool	drop_forks(t_philo *philo);
@@ -57,7 +60,6 @@ bool    precise_usleep(long duration, t_philo *philo);
 
 //philo meal
 bool	eat(t_philo *philo);
-bool    is_philo_still_alive(t_philo *philo, long current);
 bool    is_philo_done_eating(t_philo *philo);
 
 //utils2

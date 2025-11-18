@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: ewbouffe <ewbouffe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/24 19:39:36 by ewbouffe          #+#    #+#              #
-#    Updated: 2025/07/18 14:22:26 by marvin           ###   ########.fr        #
+#    Updated: 2025/11/18 11:46:47 by ewbouffe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		= clang
 CFLAGS	= -Wall -Wextra -Werror -g3
 # CFLAGS += -fsanitize=address
-CFLAGS += -fsanitize=thread
+# CFLAGS += -fsanitize=thread
 
 SRCDIR	= srcs
 INCDIR	= include
@@ -55,11 +55,13 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 
-re: fclean all
+re: 
+	make fclean 
+	make all
 
 valgrind: $(NAME)
 	@echo "Exécution avec Valgrind..."
-	@$(VALGRIND) $(VALGRIND_FLAGS) ./$(NAME) 2 800 200 200
+	@$(VALGRIND) $(VALGRIND_FLAGS) ./$(NAME) 1 800 200 200 
 
 loading :
 	@i=0; total=100; \

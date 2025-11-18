@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_builder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ewbouffe <ewbouffe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:12 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/07/14 11:21:14 by marvin           ###   ########.fr       */
+/*   Updated: 2025/11/18 12:21:03 by ewbouffe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ bool	struct_initiator(t_data *data, char **args)
 		printf("%ld 1 has taken a fork\n", time_inter(data));
 		usleep(data->tt_die);
 		printf("%ld 1 died\n", time_inter(data));
+		pthread_mutex_destroy(data->dead_philos);
+		pthread_mutex_destroy(data->done_philos);
+		pthread_mutex_destroy(data->print_mutex);
+		free(data->dead_philos);
+		free(data->done_philos);
+		free(data->print_mutex);
 		return (false);
 	}
 	if (!philo_builder(data))

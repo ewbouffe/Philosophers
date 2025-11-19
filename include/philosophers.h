@@ -6,25 +6,25 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:15 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/07/14 11:20:51 by marvin           ###   ########.fr       */
+/*   Updated: 2025/11/19 22:43:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHER_H
-#define PHILOSOPHER_H
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
-#include <pthread.h>
-#include <string.h>
-#include <stdio.h>
-#include "struct.h"
-#include <stdlib.h>
-#include <stdint.h>
-#include <sys/time.h>
-#include <stdbool.h>
-#include <unistd.h>
+# include <pthread.h>
+# include <string.h>
+# include <stdio.h>
+# include "struct.h"
+# include <stdlib.h>
+# include <stdint.h>
+# include <sys/time.h>
+# include <stdbool.h>
+# include <unistd.h>
 
 //utils
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
 void	*ft_calloc(size_t nmemb, size_t size);
 long	time_inter(t_data *data);
 long	get_time_in_ms(void);
@@ -51,16 +51,18 @@ void	*monitor(void *arg);
 bool	even_grab_fork(t_philo *philo);
 bool	odd_grab_fork(t_philo *philo);
 bool	drop_forks(t_philo *philo);
-bool    grab_forks(t_philo *philo);
+bool	grab_forks(t_philo *philo);
+bool	check_philo_death(t_data *data, size_t i);
+
 //philo action
 bool	think(t_philo *philo);
 bool	sleep_philo(t_philo *philo);
 bool	shall_we_stop(t_philo *philo);
-bool    precise_usleep(long duration, t_philo *philo);
+bool	precise_usleep(long duration, t_philo *philo);
 
 //philo meal
 bool	eat(t_philo *philo);
-bool    is_philo_done_eating(t_philo *philo);
+bool	is_philo_done_eating(t_philo *philo);
 
 //utils2
 void	philo_build_malloc_error(t_data *data, ssize_t i);

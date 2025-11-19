@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:05:46 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/07/18 13:45:38 by marvin           ###   ########.fr       */
+/*   Updated: 2025/11/19 22:39:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ bool	think(t_philo *philo)
 	think_time = (philo->data->tt_eat * 2 - philo->data->tt_sleep);
 	if (think_time < 0)
 		think_time = 0;
-	if (think_time + philo->data->tt_eat + philo->data->tt_sleep >= philo->data->tt_die)
+	if (think_time + philo->data->tt_eat + philo->data->tt_sleep
+		>= philo->data->tt_die)
 		think_time = 1;
 	if (think_time > 0)
 		usleep(think_time * 1000);
@@ -54,18 +55,19 @@ bool	shall_we_stop(t_philo *philo)
 	return (stop);
 }
 
-bool precise_usleep(long duration, t_philo *philo)
+bool	precise_usleep(long duration, t_philo *philo)
 {
-	long start = get_time_in_ms();
+	long	start;
 	long	elapsed;
 
+	start = get_time_in_ms();
 	while (1)
 	{
 		if (shall_we_stop(philo))
 			return (false);
 		elapsed = get_time_in_ms() - start;
 		if (elapsed >= duration)
-			break;
+			break ;
 		usleep(1000);
 	}
 	return (true);

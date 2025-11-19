@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:33:52 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/07/11 13:13:06 by marvin           ###   ########.fr       */
+/*   Updated: 2025/11/19 22:44:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ void	philos_thread_init(t_data *data)
 	size_t	i;
 
 	i = 0;
-	while(i < (size_t)data->number_of_philo)
+	while (i < (size_t)data->number_of_philo)
 	{
-		if(pthread_create(&data->philosophers[i].thread, NULL, &routine, &data->philosophers[i]) != 0)
+		if (pthread_create(&data->philosophers[i].thread,
+				NULL, &routine, &data->philosophers[i]) != 0)
 			perror("failed to create thread");
 		i++;
 	}
-	if(pthread_create(&data->monitor_thread, NULL, &monitor, data) != 0)
+	if (pthread_create(&data->monitor_thread,
+			NULL, &monitor, data) != 0)
 		perror("failed to create monitor thread");
 	i = 0;
 	while (i < (size_t)data->number_of_philo)
@@ -39,7 +41,7 @@ void	philos_thread_init(t_data *data)
 
 void	*routine(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(&philo->meal_mutex);
@@ -47,7 +49,7 @@ void	*routine(void *arg)
 	pthread_mutex_unlock(&philo->meal_mutex);
 	if (philo->rank % 2 == 0)
 		usleep(1000);
-	while(1)
+	while (1)
 	{
 		if (grab_forks(philo))
 			return (NULL);
@@ -75,7 +77,6 @@ bool	drop_forks(t_philo *philo)
 	return (stop);
 }
 
-
 bool	grab_forks(t_philo *philo)
 {
 	if (shall_we_stop(philo))
@@ -97,36 +98,22 @@ bool	grab_forks(t_philo *philo)
 	return (false);
 }
 
-void	*monitor(void *arg)
+bool	check_philo_death(t_data *data, size_t i)
 {
-	t_data	*data;
-	size_t	i;
 	long	current;
 	long	last_meal;
 
-	data = (t_data *)arg;
-	while (1)
+	current = time_inter(data);
+	pthread_mutex_lock(&data->philosophers[i].meal_mutex);
+	last_meal = data->philosophers[i].last_meal_time;
+	pthread_mutex_unlock(&data->philosophers[i].meal_mutex);
+	if (current - last_meal > data->tt_die)
 	{
-		i = 0;
-		while (i < (size_t)data->number_of_philo)
-		{
-			current = time_inter(data);
-			pthread_mutex_lock(&data->philosophers[i].meal_mutex);
-			last_meal = data->philosophers[i].last_meal_time;
-			pthread_mutex_unlock(&data->philosophers[i].meal_mutex);
-			if (current - last_meal > data->tt_die)
-			{
-				pthread_mutex_lock(data->dead_philos);
-				data->dead_philo = 1;
-				pthread_mutex_unlock(data->dead_philos);
-				print_death(&data->philosophers[i]);
-				return (NULL);
-			}
-			if (shall_we_stop(&data->philosophers[i]))
-				return (NULL);
-			i++;
-		}
-		usleep(1000);
+		pthread_mutex_lock(data->dead_philos);
+		data->dead_philo = 1;
+		pthread_mutex_unlock(data->dead_philos);
+		print_death(&data->philosophers[i]);
+		return (true);
 	}
-	return (NULL);
+	return (false);
 }

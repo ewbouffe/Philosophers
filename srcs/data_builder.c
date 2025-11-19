@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_builder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ewbouffe <ewbouffe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 17:34:12 by ewbouffe          #+#    #+#             */
-/*   Updated: 2025/11/18 12:21:03 by ewbouffe         ###   ########.fr       */
+/*   Updated: 2025/11/19 22:37:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,8 @@ bool	struct_initiator(t_data *data, char **args)
 	return (true);
 }
 
-bool	data_builder(t_data *data, char **args)
+static bool	init_data_mutexes(t_data *data)
 {
-	data->number_of_philo = ft_atoi(args[1]);
-	data->tt_die = ft_atoi(args[2]);
-	data->tt_eat = ft_atoi(args[3]);
-	data->tt_sleep = ft_atoi(args[4]);
-	if (data->number_of_args == 6)
-		data->number_o_time_to_eat = ft_atoi(args[5]);
-	else if (data->number_of_args == 5)
-		data->number_o_time_to_eat = -1;
-	data->start_time = get_time_in_ms();
 	data->dead_philos = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (!data->dead_philos)
 	{
@@ -72,12 +63,27 @@ bool	data_builder(t_data *data, char **args)
 	return (true);
 }
 
+bool	data_builder(t_data *data, char **args)
+{
+	data->number_of_philo = ft_atoi(args[1]);
+	data->tt_die = ft_atoi(args[2]);
+	data->tt_eat = ft_atoi(args[3]);
+	data->tt_sleep = ft_atoi(args[4]);
+	if (data->number_of_args == 6)
+		data->number_o_time_to_eat = ft_atoi(args[5]);
+	else if (data->number_of_args == 5)
+		data->number_o_time_to_eat = -1;
+	data->start_time = get_time_in_ms();
+	return (init_data_mutexes(data));
+}
+
 bool	philo_builder(t_data *data)
 {
 	size_t	i;
 
 	i = 0;
-	data->philosophers = ft_calloc(data->number_of_philo, sizeof(struct s_philosophers));
+	data->philosophers = ft_calloc(data->number_of_philo,
+			sizeof(struct s_philosophers));
 	if (!data->philosophers)
 		return (false);
 	while (i < (size_t)data->number_of_philo)
@@ -111,30 +117,10 @@ bool	create_and_assign_forks(t_data *data)
 	i = 0;
 	while (i < (size_t)data->number_of_philo)
 	{
-		data->philosophers[i].right_fork = data->philosophers[(i + 1) % data->number_of_philo].left_fork;
+		data->philosophers[i].right_fork
+			= data->philosophers[(i + 1) % data->number_of_philo].left_fork;
 		i++;
 	}
 	first_and_second_fork(data);
 	return (true);
-}
-
-void	first_and_second_fork(t_data *data)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < (size_t)data->number_of_philo)
-	{
-		if (data->philosophers[i].rank % 2 == 0)
-		{
-			data->philosophers[i].first_fork = data->philosophers[i].right_fork;
-			data->philosophers[i].second_fork = data->philosophers[i].left_fork;
-		}
-		else
-		{
-			data->philosophers[i].first_fork = data->philosophers[i].left_fork;
-			data->philosophers[i].second_fork = data->philosophers[i].right_fork;
-		}
-		i++;
-	}
 }
